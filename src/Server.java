@@ -17,16 +17,20 @@ public class Server {
         Scanner in = new Scanner(System.in);
 
         //int user =in.nextInt();
-        int id = 0;
+        //int id;
         String  username="usedqwdqr";
         String  password="sadwqdwqsay";
-      //  r.addUser(0,username,password);
-  //       id= r.getID(id,username);
-  // username=r.getName(username,id);
-  // password=r.getPassword(password,id);
-  //r.deleteUser(0);
+        //r.addUser(1,"abra",password);
 
-  //       r.printAllList();
+        boolean flag = r.isPresent("fake");
+
+        if (flag==true){System.out.println("Present");} else{System.out.println("Not Present");}
+        //id= r.getID(username);
+       // username=r.getName(id);
+        //password=r.getPassword(id);
+        //r.deleteUser(0);
+       // System.out.println(id);
+     //       r.printAllList();
     }
 
 }

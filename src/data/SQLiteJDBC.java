@@ -18,8 +18,37 @@ public class SQLiteJDBC {
 
 
 
-    Как работает? Сложный вопрос,но главное что работает.В подробности прошу не вникать,тут замешана черная магия!
+    Как работает? Сложный вопрос,но главное что работает.В подробности прошу не вникать,тут Фродо нес кольцо,
+     споткнулся об этот код и умер!
      **/
+
+
+
+    public boolean isPresent(String user) {
+        int id = -1;
+        Connection c = null;
+
+        Statement stmt = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:datachat.db");
+            c.setAutoCommit(false);
+            stmt = c.createStatement();
+            String strid = "SELECT * FROM CHAT where NAME='" + user + "';";
+            ResultSet rs = stmt.executeQuery(strid);
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+if(id!=-1){return true;} else {return false;}
+    }
+
     public void addUser(int id, String user, String password) {
         {
             Connection c = null;
@@ -48,19 +77,20 @@ public class SQLiteJDBC {
     }
 
 
-    public int getID(int i, String ids) {
+    public int getID(String user) {
+        int id = -1;
         Connection c = null;
+
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:datachat.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
-            String strid = "SELECT * FROM CHAT where NAME='" + ids + "';";
+            String strid = "SELECT * FROM CHAT where NAME='" + user + "';";
             ResultSet rs = stmt.executeQuery(strid);
             while (rs.next()) {
-                int id = rs.getInt("id");
-                i = id;
+                id = rs.getInt("id");
             }
             rs.close();
             stmt.close();
@@ -70,10 +100,11 @@ public class SQLiteJDBC {
             System.exit(0);
         }
 
-        return i;
+        return id;
     }
 
-    public String getName(String s, int id) {
+    public String getName( int id) {
+        String s = null;
         Connection c = null;
         Statement stmt = null;
         try {
@@ -100,7 +131,8 @@ public class SQLiteJDBC {
     }
 
 
-    public String getPassword(String s, int id) {
+    public String getPassword(int id) {
+        String s= null;
         Connection c = null;
         Statement stmt = null;
         try {
